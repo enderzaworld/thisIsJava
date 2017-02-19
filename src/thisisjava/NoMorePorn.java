@@ -5,7 +5,18 @@
  */
 package thisisjava;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 /**
  *
@@ -13,13 +24,38 @@ import javax.swing.JOptionPane;
  */
 public class NoMorePorn extends javax.swing.JFrame {
 
+    public final Timer stopwatch;
+    private int SEC = 240;//4*60  = 4 mins
+    private int token = 1;
+    public int timeLeft = 0;
+    private static ScheduledExecutorService ses;
+    private String current_number;
+
     /**
      * Creates new form NoMorePorn
      */
     public NoMorePorn() {
         initComponents();
+        stopwatch = new Timer(SEC*token * 1000, new MyTimerListener(chargBtn));
+        stopwatch.setRepeats(false);
     }
 
+    
+    static class MyTimerListener implements ActionListener {
+        JButton target;
+
+        public MyTimerListener(JButton target) {
+            this.target = target;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            target.setEnabled(true);
+            ses.shutdown();
+            target.setText("Charge");
+        }
+
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,18 +64,15 @@ public class NoMorePorn extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
+        Token = new javax.swing.JLabel();
+        MainTabPane = new javax.swing.JTabbedPane();
         MainPorn = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        ChargePorn = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        LoadPorn = new javax.swing.JPanel();
-        LoadSelectNetWork = new javax.swing.JPanel();
+        chargBtn = new javax.swing.JButton();
+        loadBtn = new javax.swing.JButton();
+        inputNumber = new javax.swing.JPanel();
         numberField = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
@@ -54,86 +87,107 @@ public class NoMorePorn extends javax.swing.JFrame {
         jButton16 = new javax.swing.JButton();
         jButton17 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
-        LoadNumber = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        invalidNumber = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        unknownNumber = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
         LoadSun = new javax.swing.JPanel();
-        LoadGlobe = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        promoSun = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         LoadSmart = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        promoSmart = new javax.swing.JList();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jButton6 = new javax.swing.JButton();
+        jButton19 = new javax.swing.JButton();
+        LoadGlobe = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        promoGlobe = new javax.swing.JList();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jButton20 = new javax.swing.JButton();
+        jButton21 = new javax.swing.JButton();
+        FinalConfirm = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        finalNumber = new javax.swing.JLabel();
+        finalPromo = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jButton22 = new javax.swing.JButton();
+        jButton23 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new java.awt.GridLayout(1, 1));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
+        setResizable(false);
 
-        jTabbedPane1.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        jTabbedPane1.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        Token.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        Token.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Token.setText("0");
+        Token.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Token.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jButton1.setText("Charge");
-
-        jButton2.setText("Load");
-
-        javax.swing.GroupLayout MainPornLayout = new javax.swing.GroupLayout(MainPorn);
-        MainPorn.setLayout(MainPornLayout);
-        MainPornLayout.setHorizontalGroup(
-            MainPornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPornLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                .addGap(20, 20, 20)
-                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
-                .addContainerGap())
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(Token, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
-        MainPornLayout.setVerticalGroup(
-            MainPornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPornLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(MainPornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
-                .addContainerGap())
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(Token, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
 
-        jTabbedPane1.addTab("tab1", MainPorn);
+        MainTabPane.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
 
-        ChargePorn.setLayout(new java.awt.GridLayout(2, 2));
+        MainPorn.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
 
-        jButton3.setText("Charge Slot 1");
-        ChargePorn.add(jButton3);
-
-        jButton4.setText("Charge Slot 2");
-        ChargePorn.add(jButton4);
-
-        jButton5.setText("Charge Slot 3");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        chargBtn.setText("Charge");
+        chargBtn.setFocusable(false);
+        chargBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                chargBtnActionPerformed(evt);
             }
         });
-        ChargePorn.add(jButton5);
+        MainPorn.add(chargBtn);
 
-        jButton6.setText("Charge Slot 4");
-        ChargePorn.add(jButton6);
+        loadBtn.setText("Load");
+        loadBtn.setFocusable(false);
+        loadBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadBtnActionPerformed(evt);
+            }
+        });
+        MainPorn.add(loadBtn);
 
-        jTabbedPane1.addTab("tab2", ChargePorn);
-
-        javax.swing.GroupLayout LoadPornLayout = new javax.swing.GroupLayout(LoadPorn);
-        LoadPorn.setLayout(LoadPornLayout);
-        LoadPornLayout.setHorizontalGroup(
-            LoadPornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
-        );
-        LoadPornLayout.setVerticalGroup(
-            LoadPornLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("tab3", LoadPorn);
+        MainTabPane.addTab(">1", MainPorn);
 
         numberField.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         numberField.setText("09");
         numberField.setToolTipText("");
+        numberField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
         jPanel1.setLayout(new java.awt.GridLayout(4, 3, 20, 20));
 
         jButton7.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton7.setText("7");
+        jButton7.setFocusable(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -143,6 +197,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton8.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton8.setText("8");
+        jButton8.setFocusable(false);
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -152,6 +207,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton9.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton9.setText("9");
+        jButton9.setFocusable(false);
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -161,6 +217,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton10.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton10.setText("4");
+        jButton10.setFocusable(false);
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -170,6 +227,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton11.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton11.setText("5");
+        jButton11.setFocusable(false);
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -179,6 +237,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton12.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton12.setText("6");
+        jButton12.setFocusable(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -188,6 +247,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton13.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton13.setText("1");
+        jButton13.setFocusable(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
@@ -197,6 +257,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton14.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton14.setText("2");
+        jButton14.setFocusable(false);
         jButton14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton14ActionPerformed(evt);
@@ -206,6 +267,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton15.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton15.setText("3");
+        jButton15.setFocusable(false);
         jButton15.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton15ActionPerformed(evt);
@@ -215,6 +277,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton16.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton16.setText("Next");
+        jButton16.setFocusable(false);
         jButton16.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton16ActionPerformed(evt);
@@ -224,6 +287,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton17.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton17.setText("0");
+        jButton17.setFocusable(false);
         jButton17.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton17ActionPerformed(evt);
@@ -233,6 +297,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         jButton18.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton18.setText("<-");
+        jButton18.setFocusable(false);
         jButton18.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton18ActionPerformed(evt);
@@ -240,160 +305,574 @@ public class NoMorePorn extends javax.swing.JFrame {
         });
         jPanel1.add(jButton18);
 
-        javax.swing.GroupLayout LoadSelectNetWorkLayout = new javax.swing.GroupLayout(LoadSelectNetWork);
-        LoadSelectNetWork.setLayout(LoadSelectNetWorkLayout);
-        LoadSelectNetWorkLayout.setHorizontalGroup(
-            LoadSelectNetWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoadSelectNetWorkLayout.createSequentialGroup()
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton1.setText("Return");
+        jButton1.setFocusable(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout inputNumberLayout = new javax.swing.GroupLayout(inputNumber);
+        inputNumber.setLayout(inputNumberLayout);
+        inputNumberLayout.setHorizontalGroup(
+            inputNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputNumberLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
-                .addGroup(LoadSelectNetWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(numberField)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE))
+                .addGroup(inputNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(numberField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
                 .addGap(51, 51, 51))
         );
-        LoadSelectNetWorkLayout.setVerticalGroup(
-            LoadSelectNetWorkLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LoadSelectNetWorkLayout.createSequentialGroup()
+        inputNumberLayout.setVerticalGroup(
+            inputNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(inputNumberLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(numberField)
+                .addComponent(numberField, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(42, 42, 42))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab4", LoadSelectNetWork);
+        MainTabPane.addTab(">2", inputNumber);
 
-        javax.swing.GroupLayout LoadNumberLayout = new javax.swing.GroupLayout(LoadNumber);
-        LoadNumber.setLayout(LoadNumberLayout);
-        LoadNumberLayout.setHorizontalGroup(
-            LoadNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
+        invalidNumber.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 60)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Invalid Number");
+        jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        invalidNumber.add(jLabel5);
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton2.setText("Return");
+        jButton2.setFocusable(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        invalidNumber.add(jButton2);
+
+        MainTabPane.addTab(">e", invalidNumber);
+
+        unknownNumber.setLayout(new java.awt.GridLayout(2, 1));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 60)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Unknown Number");
+        jLabel6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        unknownNumber.add(jLabel6);
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton3.setText("Return");
+        jButton3.setFocusable(false);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        unknownNumber.add(jButton3);
+
+        MainTabPane.addTab(">e", unknownNumber);
+
+        promoSun.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        promoSun.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        promoSun.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        promoSun.setToolTipText("");
+        jScrollPane1.setViewportView(promoSun);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Sun Menu");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
         );
-        LoadNumberLayout.setVerticalGroup(
-            LoadNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab5", LoadNumber);
+        jPanel3.setLayout(new java.awt.GridLayout());
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton4.setText("Return");
+        jButton4.setFocusable(false);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton4);
+
+        jButton5.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton5.setText("Next");
+        jButton5.setFocusable(false);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton5);
 
         javax.swing.GroupLayout LoadSunLayout = new javax.swing.GroupLayout(LoadSun);
         LoadSun.setLayout(LoadSunLayout);
         LoadSunLayout.setHorizontalGroup(
             LoadSunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(LoadSunLayout.createSequentialGroup()
+                .addGroup(LoadSunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoadSunLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         LoadSunLayout.setVerticalGroup(
             LoadSunLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(LoadSunLayout.createSequentialGroup()
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab6", LoadSun);
+        MainTabPane.addTab(">3", LoadSun);
 
-        javax.swing.GroupLayout LoadGlobeLayout = new javax.swing.GroupLayout(LoadGlobe);
-        LoadGlobe.setLayout(LoadGlobeLayout);
-        LoadGlobeLayout.setHorizontalGroup(
-            LoadGlobeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
+        promoSmart.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        promoSmart.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        promoSmart.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        promoSmart.setToolTipText("");
+        jScrollPane2.setViewportView(promoSmart);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Smart Menu");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
         );
-        LoadGlobeLayout.setVerticalGroup(
-            LoadGlobeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab7", LoadGlobe);
+        jPanel8.setLayout(new java.awt.GridLayout());
+
+        jButton6.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton6.setText("Return");
+        jButton6.setFocusable(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton6);
+
+        jButton19.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton19.setText("Next");
+        jButton19.setFocusable(false);
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
+        jPanel8.add(jButton19);
 
         javax.swing.GroupLayout LoadSmartLayout = new javax.swing.GroupLayout(LoadSmart);
         LoadSmart.setLayout(LoadSmartLayout);
         LoadSmartLayout.setHorizontalGroup(
             LoadSmartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 782, Short.MAX_VALUE)
+            .addGroup(LoadSmartLayout.createSequentialGroup()
+                .addGroup(LoadSmartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoadSmartLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         LoadSmartLayout.setVerticalGroup(
             LoadSmartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 508, Short.MAX_VALUE)
+            .addGroup(LoadSmartLayout.createSequentialGroup()
+                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
-        jTabbedPane1.addTab("tab8", LoadSmart);
+        MainTabPane.addTab(">3", LoadSmart);
 
-        getContentPane().add(jTabbedPane1);
+        promoGlobe.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        promoGlobe.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        promoGlobe.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        promoGlobe.setToolTipText("");
+        jScrollPane3.setViewportView(promoGlobe);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Globe Menu");
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+
+        jPanel10.setLayout(new java.awt.GridLayout());
+
+        jButton20.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton20.setText("Return");
+        jButton20.setFocusable(false);
+        jButton20.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton20ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton20);
+
+        jButton21.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton21.setText("Next");
+        jButton21.setFocusable(false);
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton21);
+
+        javax.swing.GroupLayout LoadGlobeLayout = new javax.swing.GroupLayout(LoadGlobe);
+        LoadGlobe.setLayout(LoadGlobeLayout);
+        LoadGlobeLayout.setHorizontalGroup(
+            LoadGlobeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadGlobeLayout.createSequentialGroup()
+                .addGroup(LoadGlobeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoadGlobeLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        LoadGlobeLayout.setVerticalGroup(
+            LoadGlobeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadGlobeLayout.createSequentialGroup()
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        MainTabPane.addTab(">3", LoadGlobe);
+
+        FinalConfirm.setLayout(new java.awt.GridLayout(4, 1));
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jLabel2.setText("Confirm Details");
+        FinalConfirm.add(jLabel2);
+
+        finalNumber.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        finalNumber.setText("Number:");
+        FinalConfirm.add(finalNumber);
+
+        finalPromo.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        finalPromo.setText("Promo:");
+        FinalConfirm.add(finalPromo);
+
+        jPanel6.setLayout(new java.awt.GridLayout());
+
+        jButton22.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton22.setText("Return");
+        jButton22.setFocusable(false);
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton22);
+
+        jButton23.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton23.setText("Proceed");
+        jButton23.setFocusable(false);
+        jButton23.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton23ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton23);
+
+        FinalConfirm.add(jPanel6);
+
+        MainTabPane.addTab(">F", FinalConfirm);
+
+        MainTabPane.setSelectedComponent(MainPorn);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MainTabPane)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(1, 1, 1))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(MainTabPane))
+        );
+
+        MainTabPane.setUI(new BasicTabbedPaneUI() {  
+            @Override  
+            protected int calculateTabAreaHeight(int tab_placement, int run_count, int max_tab_height) {  
+                /*if (MainTabPane.getTabCount() > 1)
+                return super.calculateTabAreaHeight(tab_placement, run_count, max_tab_height);  
+                else */ 
+                return 0;  
+            }  
+        });
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        keypadHandler(jButton14); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        keypadHandler(jButton17); //
+        keypadHandler((JButton) evt.getSource()); //
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        keypadHandler(jButton18); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        keypadHandler(jButton13); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        keypadHandler(jButton15); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        keypadHandler(jButton10); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        keypadHandler(jButton11); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        keypadHandler(jButton12); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        keypadHandler(jButton7); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        keypadHandler(jButton8); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        keypadHandler(jButton9); // TODO add your handling code here:
+        keypadHandler((JButton) evt.getSource()); // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
         NumberValidation nvdia = new NumberValidation();
+        current_number = numberField.getText();
         switch(nvdia.getNumberIdentity(numberField.getText())){
             case "smart":
-                JOptionPane.showMessageDialog(rootPane, "smart");
+                MainTabPane.setSelectedComponent(LoadSmart);//JOptionPane.showMessageDialog(rootPane, "smart");
                 break;
             case "sun":
-                JOptionPane.showMessageDialog(rootPane, "sun");
+                MainTabPane.setSelectedComponent(LoadSun);//JOptionPane.showMessageDialog(rootPane, "sun");
                 break;
             case "globe":
-                JOptionPane.showMessageDialog(rootPane, "globe");
+                MainTabPane.setSelectedComponent(LoadGlobe);//JOptionPane.showMessageDialog(rootPane, "globe");
                 break;
             case "invalid":
-                JOptionPane.showMessageDialog(rootPane, "Invalid number");
+                MainTabPane.setSelectedComponent(invalidNumber);
                 break;
-            default:
-                JOptionPane.showMessageDialog(rootPane, "Unknown number");
+            default://unknownNumber
+                MainTabPane.setSelectedComponent(unknownNumber);
                 break;
         }
     }//GEN-LAST:event_jButton16ActionPerformed
 
+    private void loadBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadBtnActionPerformed
+        MainTabPane.setSelectedComponent(inputNumber);
+    }//GEN-LAST:event_loadBtnActionPerformed
+
+    private void chargBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargBtnActionPerformed
+        JButton toDisable = (JButton) evt.getSource();
+        toDisable.setEnabled(false);
+        timeLeft=SEC*token;
+        ses = Executors.newSingleThreadScheduledExecutor();
+        ses.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                chargBtn.setText("Charging("+timeLeft+" sec)");
+                timeLeft--;
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+        stopwatch.start();
+    }//GEN-LAST:event_chargBtnActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MainTabPane.setSelectedComponent(MainPorn);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        MainTabPane.setSelectedComponent(inputNumber);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        MainTabPane.setSelectedComponent(inputNumber);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        MainTabPane.setSelectedComponent(inputNumber);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        MainTabPane.setSelectedComponent(FinalConfirm);
+        finalNumber.setText("Number: "+current_number);
+        finalPromo.setText("Promo: "+promoSun.getSelectedValue());
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        MainTabPane.setSelectedComponent(inputNumber);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        MainTabPane.setSelectedComponent(FinalConfirm);
+        finalNumber.setText("Number: "+current_number);
+        finalPromo.setText("Promo: "+promoSmart.getSelectedValue());
+    }//GEN-LAST:event_jButton19ActionPerformed
+
+    private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
+        MainTabPane.setSelectedComponent(inputNumber);
+    }//GEN-LAST:event_jButton20ActionPerformed
+
+    private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        MainTabPane.setSelectedComponent(FinalConfirm);
+        finalNumber.setText("Number: "+current_number);
+        finalPromo.setText("Promo: "+promoGlobe.getSelectedValue());
+    }//GEN-LAST:event_jButton21ActionPerformed
+
+    private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+        NumberValidation nvdia = new NumberValidation();
+        switch(nvdia.getNumberIdentity(current_number)){
+            case "smart":
+                MainTabPane.setSelectedComponent(LoadSmart);//JOptionPane.showMessageDialog(rootPane, "smart");
+                break;
+            case "sun":
+                MainTabPane.setSelectedComponent(LoadSun);//JOptionPane.showMessageDialog(rootPane, "sun");
+                break;
+            case "globe":
+                MainTabPane.setSelectedComponent(LoadGlobe);//JOptionPane.showMessageDialog(rootPane, "globe");
+                break;
+            case "invalid":
+                MainTabPane.setSelectedComponent(invalidNumber);
+                break;
+            default://unknownNumber
+                MainTabPane.setSelectedComponent(unknownNumber);
+                break;
+        }
+    }//GEN-LAST:event_jButton22ActionPerformed
+
+    private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
+        NumberValidation nvdia = new NumberValidation();
+        switch(nvdia.getNumberIdentity(current_number)){
+            case "smart":
+                JOptionPane.showMessageDialog(rootPane, "smart");//MainTabPane.setSelectedComponent(LoadSmart);//
+                break;
+            case "sun":
+                JOptionPane.showMessageDialog(rootPane, "sun");//MainTabPane.setSelectedComponent(LoadSun);//
+                break;
+            case "globe":
+                JOptionPane.showMessageDialog(rootPane, "globe");//MainTabPane.setSelectedComponent(LoadGlobe);//
+                break;
+            case "invalid":
+                MainTabPane.setSelectedComponent(invalidNumber);
+                break;
+            default://unknownNumber
+                MainTabPane.setSelectedComponent(unknownNumber);
+                break;
+        }
+    }//GEN-LAST:event_jButton23ActionPerformed
+
+    
     private void keypadHandler(javax.swing.JButton btn){
         if(!btn.getText().equals("<-")&&numberField.getText().length()<11){
-            numberField.setText(numberField.getText()+btn.getText());
+            int pos = numberField.getCaretPosition();
+            numberField.setText(numberField.getText().substring(0, pos)+btn.getText()+numberField.getText().substring(pos));
+            numberField.setCaretPosition(pos+1);
         }else if(numberField.getText().length()>0&&btn.getText().equals("<-")){
-            numberField.setText(numberField.getText().substring(0, numberField.getText().length()-1));
+            int pos = numberField.getCaretPosition();
+            numberField.setText(numberField.getText().substring(0, pos-1)+numberField.getText().substring(pos));
+            numberField.setCaretPosition(pos-1);
         }
     }
     
@@ -433,14 +912,18 @@ public class NoMorePorn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel ChargePorn;
+    private javax.swing.JPanel FinalConfirm;
     private javax.swing.JPanel LoadGlobe;
-    private javax.swing.JPanel LoadNumber;
-    private javax.swing.JPanel LoadPorn;
-    private javax.swing.JPanel LoadSelectNetWork;
     private javax.swing.JPanel LoadSmart;
     private javax.swing.JPanel LoadSun;
     private javax.swing.JPanel MainPorn;
+    private javax.swing.JTabbedPane MainTabPane;
+    private javax.swing.JLabel Token;
+    private javax.swing.JButton chargBtn;
+    private javax.swing.JLabel finalNumber;
+    private javax.swing.JLabel finalPromo;
+    private javax.swing.JPanel inputNumber;
+    private javax.swing.JPanel invalidNumber;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -451,7 +934,12 @@ public class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton20;
+    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
+    private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -459,8 +947,29 @@ public class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton loadBtn;
     private javax.swing.JTextField numberField;
+    private javax.swing.JList promoGlobe;
+    private javax.swing.JList promoSmart;
+    private javax.swing.JList promoSun;
+    private javax.swing.JPanel unknownNumber;
     // End of variables declaration//GEN-END:variables
 }
