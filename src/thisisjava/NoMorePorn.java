@@ -24,8 +24,8 @@ import javax.swing.plaf.basic.BasicTabbedPaneUI;
  */
 public class NoMorePorn extends javax.swing.JFrame {
 
-    public final Timer stopwatch;
-    private int SEC = 240;//4*60  = 4 mins
+    public Timer stopwatch;
+    private int SEC = 120;//2*60  = 2 mins
     private int token = 1;
     public int timeLeft = 0;
     private static ScheduledExecutorService ses;
@@ -36,10 +36,23 @@ public class NoMorePorn extends javax.swing.JFrame {
      */
     public NoMorePorn() {
         initComponents();
-        stopwatch = new Timer(SEC*token * 1000, new MyTimerListener(chargBtn));
-        stopwatch.setRepeats(false);
+        
+        ScheduledExecutorService sas = Executors.newSingleThreadScheduledExecutor();
+        sas.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                poke_in.setText("Pepe: "+token);
+            }
+        }, 0, 1, TimeUnit.MILLISECONDS);
+    }
+    
+    public void addToken(int token){
+        this.token+= token;
     }
 
+    public void reduceToken(int token){
+        this.token-= token;
+    }
     
     static class MyTimerListener implements ActionListener {
         JButton target;
@@ -64,10 +77,9 @@ public class NoMorePorn extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
-        jPanel2 = new javax.swing.JPanel();
-        Token = new javax.swing.JLabel();
+        pornel = new javax.swing.JPanel();
+        poke_in = new javax.swing.JLabel();
         MainTabPane = new javax.swing.JTabbedPane();
         MainPorn = new javax.swing.JPanel();
         chargBtn = new javax.swing.JButton();
@@ -131,29 +143,30 @@ public class NoMorePorn extends javax.swing.JFrame {
         setUndecorated(true);
         setResizable(false);
 
-        Token.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
-        Token.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Token.setText("0");
-        Token.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Token.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        poke_in.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        poke_in.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        poke_in.setText("Pepe: 0");
+        poke_in.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        poke_in.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout pornelLayout = new javax.swing.GroupLayout(pornel);
+        pornel.setLayout(pornelLayout);
+        pornelLayout.setHorizontalGroup(
+            pornelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pornelLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(Token, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(poke_in, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        pornelLayout.setVerticalGroup(
+            pornelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pornelLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(Token, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(poke_in, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
+        MainTabPane.setEnabled(false);
         MainTabPane.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
 
         MainPorn.setLayout(new java.awt.GridLayout(1, 0, 10, 10));
@@ -415,7 +428,7 @@ public class NoMorePorn extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel3.setLayout(new java.awt.GridLayout());
+        jPanel3.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton4.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton4.setText("Return");
@@ -495,7 +508,7 @@ public class NoMorePorn extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel8.setLayout(new java.awt.GridLayout());
+        jPanel8.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton6.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton6.setText("Return");
@@ -575,7 +588,7 @@ public class NoMorePorn extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel10.setLayout(new java.awt.GridLayout());
+        jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton20.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton20.setText("Return");
@@ -634,7 +647,7 @@ public class NoMorePorn extends javax.swing.JFrame {
         finalPromo.setText("Promo:");
         FinalConfirm.add(finalPromo);
 
-        jPanel6.setLayout(new java.awt.GridLayout());
+        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
 
         jButton22.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton22.setText("Return");
@@ -670,13 +683,13 @@ public class NoMorePorn extends javax.swing.JFrame {
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(MainTabPane)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pornel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(1, 1, 1))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pornel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(MainTabPane))
         );
@@ -765,9 +778,12 @@ public class NoMorePorn extends javax.swing.JFrame {
     }//GEN-LAST:event_loadBtnActionPerformed
 
     private void chargBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargBtnActionPerformed
+        if(token>0){
         JButton toDisable = (JButton) evt.getSource();
         toDisable.setEnabled(false);
         timeLeft=SEC*token;
+        stopwatch = new Timer(SEC*token * 1000, new MyTimerListener(chargBtn));
+        stopwatch.setRepeats(false);
         ses = Executors.newSingleThreadScheduledExecutor();
         ses.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -777,6 +793,10 @@ public class NoMorePorn extends javax.swing.JFrame {
             }
         }, 0, 1, TimeUnit.SECONDS);
         stopwatch.start();
+        reduceToken(token);
+        }else{
+            JOptionPane.showMessageDialog(this, "Wala ka pera");
+        }
     }//GEN-LAST:event_chargBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -918,7 +938,6 @@ public class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JPanel LoadSun;
     private javax.swing.JPanel MainPorn;
     private javax.swing.JTabbedPane MainTabPane;
-    private javax.swing.JLabel Token;
     private javax.swing.JButton chargBtn;
     private javax.swing.JLabel finalNumber;
     private javax.swing.JLabel finalPromo;
@@ -955,7 +974,6 @@ public class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
@@ -967,6 +985,8 @@ public class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton loadBtn;
     private javax.swing.JTextField numberField;
+    private javax.swing.JLabel poke_in;
+    private javax.swing.JPanel pornel;
     private javax.swing.JList promoGlobe;
     private javax.swing.JList promoSmart;
     private javax.swing.JList promoSun;
