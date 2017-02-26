@@ -511,12 +511,55 @@
                           <Font name="Tahoma" size="40" style="0"/>
                         </Property>
                         <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                          <StringArray count="5">
-                            <StringItem index="0" value="Item 1"/>
-                            <StringItem index="1" value="Item 2"/>
-                            <StringItem index="2" value="Item 3"/>
-                            <StringItem index="3" value="Item 4"/>
-                            <StringItem index="4" value="Item 5"/>
+                          <StringArray count="48">
+                            <StringItem index="0" value="Regular 5"/>
+                            <StringItem index="1" value="Regular 10"/>
+                            <StringItem index="2" value="Regular 15"/>
+                            <StringItem index="3" value="Regular 20"/>
+                            <StringItem index="4" value="Regular 25"/>
+                            <StringItem index="5" value="Regular 30"/>
+                            <StringItem index="6" value="Regular 35"/>
+                            <StringItem index="7" value="Regular 40"/>
+                            <StringItem index="8" value="Regular 45"/>
+                            <StringItem index="9" value="Regular 50"/>
+                            <StringItem index="10" value="Regular 55"/>
+                            <StringItem index="11" value="Regular 60"/>
+                            <StringItem index="12" value="Regular 65"/>
+                            <StringItem index="13" value="Regular 70"/>
+                            <StringItem index="14" value="Regular 75"/>
+                            <StringItem index="15" value="Regular 80"/>
+                            <StringItem index="16" value="Regular 85"/>
+                            <StringItem index="17" value="Regular 90"/>
+                            <StringItem index="18" value="Regular 95"/>
+                            <StringItem index="19" value="Regular 100"/>
+                            <StringItem index="20" value="Regular 105"/>
+                            <StringItem index="21" value="Regular 110"/>
+                            <StringItem index="22" value="Regular 115"/>
+                            <StringItem index="23" value="Regular 120"/>
+                            <StringItem index="24" value="Regular 125"/>
+                            <StringItem index="25" value="Regular 130"/>
+                            <StringItem index="26" value="Regular 135"/>
+                            <StringItem index="27" value="Regular 140"/>
+                            <StringItem index="28" value="Regular 145"/>
+                            <StringItem index="29" value="Regular 150"/>
+                            <StringItem index="30" value="Call and Text Combo 10"/>
+                            <StringItem index="31" value="Call and Text Combo 20"/>
+                            <StringItem index="32" value="Call and Text Combo 30"/>
+                            <StringItem index="33" value="Call and Text Combo 50"/>
+                            <StringItem index="34" value="Unli Call and Text 25"/>
+                            <StringItem index="35" value="Unli Call and Text 30"/>
+                            <StringItem index="36" value="Unli Call and Text 100"/>
+                            <StringItem index="37" value="Unli Call and Text 150"/>
+                            <StringItem index="38" value="Unli Call and Text 450"/>
+                            <StringItem index="39" value="Unli Text to all network 20"/>
+                            <StringItem index="40" value="Unli Text 20"/>
+                            <StringItem index="41" value="Unli Text 50"/>
+                            <StringItem index="42" value="Unli Text 150"/>
+                            <StringItem index="43" value="Winner Text 10"/>
+                            <StringItem index="44" value="Trio 20"/>
+                            <StringItem index="45" value="IDD Combo 30"/>
+                            <StringItem index="46" value="IDD Combo 60"/>
+                            <StringItem index="47" value="TODO IDD 30"/>
                           </StringArray>
                         </Property>
                         <Property name="selectionMode" type="int" value="0"/>

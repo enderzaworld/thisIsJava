@@ -7,14 +7,20 @@ package thisisjava;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
@@ -22,10 +28,10 @@ import javax.swing.plaf.basic.BasicTabbedPaneUI;
  *
  * @author Imba Gamer
  */
-public class NoMorePorn extends javax.swing.JFrame {
+public final class NoMorePorn extends javax.swing.JFrame {
 
     public Timer stopwatch;
-    private int SEC = 120;//2*60  = 2 mins
+    private final int SEC = 120;//2*60  = 2 mins
     private int token = 1;
     public int timeLeft = 0;
     private static ScheduledExecutorService ses;
@@ -39,11 +45,53 @@ public class NoMorePorn extends javax.swing.JFrame {
         
         ScheduledExecutorService sas = Executors.newSingleThreadScheduledExecutor();
         sas.scheduleAtFixedRate(new Runnable() {
-            @Override
+
             public void run() {
+                //tokenAdd
+                FileReader fr = null;
+                try {
+                    fr = new FileReader(tokenAdd);
+                    BufferedReader textReader = new BufferedReader(fr);
+                    String tokenIn = textReader.readLine();
+                    addToken(Integer.parseInt(tokenIn));
+                    //System.out.println(tokenIn);
+                    fr.close();
+                    makeTokenFile();
+                } catch (FileNotFoundException ex) {
+                    makeTokenFile();
+                } catch (IOException | NumberFormatException ex) {
+                    Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
+                } finally {
+                    try {
+                        fr.close();
+                    } catch (IOException ex) {
+                        Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
                 poke_in.setText("Pepe: "+token);
             }
         }, 0, 1, TimeUnit.MILLISECONDS);
+    }
+    
+    public void makeTokenFile(){
+        File tokenAddIn=new File(tokenAdd);
+        try(FileWriter fwt=new FileWriter(tokenAddIn))
+        {
+            fwt.write("0");
+            fwt.flush();
+            fwt.close();
+        } catch (FileNotFoundException ex) {
+            makeTokenFile();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException ex1) {
+                //Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        }catch(IOException exc)
+        {
+            JOptionPane.showMessageDialog(null, exc.getMessage());
+            exc.printStackTrace();
+        }
     }
     
     public void addToken(int token){
@@ -395,7 +443,7 @@ public class NoMorePorn extends javax.swing.JFrame {
 
         promoSun.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         promoSun.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Regular 5", "Regular 10", "Regular 15", "Regular 20", "Regular 25", "Regular 30", "Regular 35", "Regular 40", "Regular 45", "Regular 50", "Regular 55", "Regular 60", "Regular 65", "Regular 70", "Regular 75", "Regular 80", "Regular 85", "Regular 90", "Regular 95", "Regular 100", "Regular 105", "Regular 110", "Regular 115", "Regular 120", "Regular 125", "Regular 130", "Regular 135", "Regular 140", "Regular 145", "Regular 150", "Call and Text Combo 10", "Call and Text Combo 20", "Call and Text Combo 30", "Call and Text Combo 50", "Unli Call and Text 25", "Unli Call and Text 30", "Unli Call and Text 100", "Unli Call and Text 150", "Unli Call and Text 450", "Unli Text to all network 20", "Unli Text 20", "Unli Text 50", "Unli Text 150", "Winner Text 10", "Trio 20", "IDD Combo 30", "IDD Combo 60", "TODO IDD 30" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -869,7 +917,7 @@ public class NoMorePorn extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "smart");//MainTabPane.setSelectedComponent(LoadSmart);//
                 break;
             case "sun":
-                JOptionPane.showMessageDialog(rootPane, "sun");//MainTabPane.setSelectedComponent(LoadSun);//
+                retailSun(current_number,promoSun.getSelectedValue().toString());//JOptionPane.showMessageDialog(rootPane, "sun");//MainTabPane.setSelectedComponent(LoadSun);//
                 break;
             case "globe":
                 JOptionPane.showMessageDialog(rootPane, "globe");//MainTabPane.setSelectedComponent(LoadGlobe);//
@@ -883,6 +931,137 @@ public class NoMorePorn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton23ActionPerformed
 
+    
+    private static final String directory=System.getProperty("user.dir");
+    private static final String sample=directory+File.separator+"sendMsg.txt";
+    private static final String trigger=directory+File.separator+"sendMsgTrigger.txt";
+    private static final String tokenAdd=directory+File.separator+"addToken.txt";
+
+
+    public static void createFile(String code,String number)
+    {
+        File file=new File(sample);
+        try(FileWriter fw=new FileWriter(file))
+        {
+            fw.write(number+"_-_"+code);
+            fw.flush();
+            fw.close();
+            File fileTrigger=new File(trigger);
+            try(FileWriter fwt=new FileWriter(fileTrigger))
+            {
+                fwt.write("1");
+                fwt.flush();
+                fwt.close();
+            }catch(IOException ex)
+            {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                ex.printStackTrace();
+            }
+        }catch(IOException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    
+    public void safeCreateFile(String code,String number,int cost)//wait for queue
+    {
+        FileReader fr = null;
+        String flag = "1";
+        int counter = 0;
+        boolean fail = false;
+        do{
+        try {
+            fr = new FileReader(trigger);
+            BufferedReader textReader = new BufferedReader(fr);
+            flag = textReader.readLine();
+            System.out.println(flag);
+        } catch (FileNotFoundException ex) {
+            createTriggerFile();
+        } catch (IOException ex) {
+            Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fr.close();
+            } catch (IOException ex) {
+                continue;//Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
+            // thread to sleep for 1000 milliseconds
+            Thread.sleep(500);
+        } catch (InterruptedException ex) {
+            continue;//Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        counter++;
+        if(counter>10){fail=true;break;}
+        }while("1".equals(flag));
+            MainTabPane.setSelectedComponent(MainPorn);
+        if(!fail){
+            createFile(code,number);
+            reduceToken(cost);
+            JOptionPane.showMessageDialog(null, "Sent.");
+        }else{
+            createTriggerFile();
+            JOptionPane.showMessageDialog(null, "Sending Failed. Try again.");
+        }
+        
+    }
+    
+    public static void createTriggerFile(){
+        File fileTrigger=new File(trigger);
+        try(FileWriter fwt=new FileWriter(fileTrigger))
+        {
+            fwt.write("0");
+            fwt.flush();
+            fwt.close();
+        }catch(IOException exc)
+        {
+            JOptionPane.showMessageDialog(null, exc.getMessage());
+            exc.printStackTrace();
+        }
+    }
+    
+    
+    private void retailSun(String number,String promo){
+        String[] stringsPromo = {"Call and Text Combo 10", "Call and Text Combo 20", "Call and Text Combo 30", "Call and Text Combo 50", "Unli Call and Text 25", "Unli Call and Text 30", "Unli Call and Text 100", "Unli Call and Text 150", "Unli Call and Text 450", "Unli Text to all network 20", "Unli Text 20", "Unli Text 50", "Unli Text 150", "Winner Text 10", "Trio 20", "IDD Combo 30", "IDD Combo 60", "TODO IDD 30" };
+        String[] stringsCode =  {"CTC10", "CTC20", "CTC30", "CTC50", "CTU25", "CTU30", "CTU100", "CTU150", "CTU450", "UTA20", "TU20", "TU50", "TU150", "WT10", "TRIO20", "IDD30", "IDD60", "IDD300" };
+        int[] promoCost =       {     10,      20,      30,      50,      25,      30,      100,      150,      450,      20,     20,     50,     150,     10,       20,      30,      60,       30 };
+        if(promo.contains("Regular")){
+            int cost = Integer.parseInt(promo.replace("Regular ", ""));
+            System.out.println(token+">="+cost);
+            if(token>=cost){
+                safeCreateFile(number+" "+promo.replace("Regular ", ""),"GATEWAY",cost);
+            }else{
+                MainTabPane.setSelectedComponent(MainPorn);
+                JOptionPane.showMessageDialog(promoSun, "Not Enough pepe");
+            }
+        }else{
+            if(stringsPromo.length==stringsCode.length){
+                for (int i = 0; i < stringsPromo.length && i< stringsCode.length; i++) {
+                    String strPromo = stringsPromo[i];
+                    if(promo.equals(strPromo)){
+                        String strCode = stringsCode[i];
+                        int cost = promoCost[i];
+
+                        System.out.println(token+">="+cost);
+
+                        if(token>=cost){
+                            if(strPromo == null ? promo == null : strPromo.equals(promo)){
+                                safeCreateFile(number+" "+strCode,"GATEWAY",cost);
+                                break;
+                            }
+                        }else{
+                            MainTabPane.setSelectedComponent(MainPorn);
+                            JOptionPane.showMessageDialog(promoSun, "Not Enough pepe");
+                        }
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(promoSun, "length mismatch at retailSun");
+            }
+        }
+    }
     
     private void keypadHandler(javax.swing.JButton btn){
         if(!btn.getText().equals("<-")&&numberField.getText().length()<11){
@@ -912,15 +1091,11 @@ public class NoMorePorn extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NoMorePorn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NoMorePorn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NoMorePorn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(NoMorePorn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        
         //</editor-fold>
 
         /* Create and display the form */
