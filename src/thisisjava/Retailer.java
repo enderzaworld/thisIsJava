@@ -116,7 +116,7 @@ public class Retailer {
         if(promo.contains("Regular")){
             int cost = Integer.parseInt(promo.replace("Regular ", ""));
             System.out.println(NoMorePorn.token+">="+cost);
-            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                 if(NoMorePorn.token>=cost){
                     safeCreateFile(number+" "+promo.replace("Regular ", ""),nvdia.getGateway("sun"),cost);
                 }else{
@@ -136,7 +136,7 @@ public class Retailer {
                         int cost = promoCost[i];
 
                         System.out.println(NoMorePorn.token+">="+cost);
-                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                             if(NoMorePorn.token>=cost){
                                 if(strPromo == null ? promo == null : strPromo.equals(promo)){
                                     safeCreateFile(number+" "+strCode,nvdia.getGateway("sun"),cost);
@@ -164,7 +164,7 @@ public class Retailer {
         if(promo.contains("Regular")){
             int cost = Integer.parseInt(promo.replace("Regular ", ""));
             System.out.println(NoMorePorn.token+">="+cost);
-            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                 if(NoMorePorn.token>=cost){
                     safeCreateFile(number+" "+promo.replace("Regular ", ""),nvdia.getGateway("globe"),cost);
                 }else{
@@ -188,7 +188,7 @@ public class Retailer {
         if(promo.contains("Regular")){
             int cost = Integer.parseInt(promo.replace("Regular ", ""));
             System.out.println(NoMorePorn.token+">="+cost);
-            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                 if(NoMorePorn.token>=cost){
                     safeCreateFile(number+" "+promo.replace("Regular ", ""),nvdia.getGateway("smart"),cost);
                 }else{
@@ -208,7 +208,7 @@ public class Retailer {
                         int cost = promoCost[i];
 
                         System.out.println(NoMorePorn.token+">="+cost);
-                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                             if(NoMorePorn.token>=cost){
                                 if(strPromo == null ? promo == null : strPromo.equals(promo)){
                                     safeCreateFile(number+" "+strCode,nvdia.getGateway("smart"),cost);
@@ -240,7 +240,7 @@ public class Retailer {
             String regStr = promo.substring((promo.indexOf("Regular ")+"Regular ".length()));
             int cost = Integer.parseInt(regStr);
             System.out.println(NoMorePorn.token+">="+cost);
-            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                 if(NoMorePorn.token>=cost){
                     safeCreateFile(number+" "+regStr,nvdia.getGateway("smartbro"),cost);
                 }else{
@@ -260,7 +260,7 @@ public class Retailer {
                         int cost = promoCost[i];
 
                         System.out.println(NoMorePorn.token+">="+cost);
-                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                             if(NoMorePorn.token>=cost){
                                 if(strPromo == null ? promo == null : strPromo.equals(promo)){
                                     safeCreateFile(number+" "+strCode,nvdia.getGateway("smartbro"),cost);
@@ -292,7 +292,7 @@ public class Retailer {
             String regStr = promo.substring((promo.indexOf("Regular ")+"Regular ".length()));
             int cost = Integer.parseInt(regStr);
             System.out.println(NoMorePorn.token+">="+cost);
-            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+            if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                 if(NoMorePorn.token>=cost){
                     safeCreateFile(number+" "+regStr,nvdia.getGateway("tnt"),cost);
                 }else{
@@ -312,7 +312,7 @@ public class Retailer {
                         int cost = promoCost[i];
 
                         System.out.println(NoMorePorn.token+">="+cost);
-                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)>=1){
+                        if(JOptionPane.showConfirmDialog(null, "The cost is:"+cost+".\nDo you want to proceed?","Confirm",YES_NO_OPTION)<1){
                             if(NoMorePorn.token>=cost){
                                 if(strPromo == null ? promo == null : strPromo.equals(promo)){
                                     safeCreateFile(number+" "+strCode,nvdia.getGateway("tnt"),cost);
