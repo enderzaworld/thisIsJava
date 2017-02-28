@@ -32,10 +32,11 @@ public final class NoMorePorn extends javax.swing.JFrame {
 
     public Timer stopwatch;
     private final int SEC = 120;//2*60  = 2 mins
-    private int token = 1;
+    static public int token = 0;
     public int timeLeft = 0;
     private static ScheduledExecutorService ses;
     private String current_number;
+    public int smartSelected=0;//1 - smart, 2 - smartbro , 3 - TNT
 
     /**
      * Creates new form NoMorePorn
@@ -60,7 +61,7 @@ public final class NoMorePorn extends javax.swing.JFrame {
                 } catch (FileNotFoundException ex) {
                     makeTokenFile();
                 } catch (IOException | NumberFormatException ex) {
-                    Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
+                    makeTokenFile();
                 } finally {
                     try {
                         fr.close();
@@ -94,12 +95,12 @@ public final class NoMorePorn extends javax.swing.JFrame {
         }
     }
     
-    public void addToken(int token){
-        this.token+= token;
+    static public void addToken(int token){
+        NoMorePorn.token+= token;
     }
 
-    public void reduceToken(int token){
-        this.token-= token;
+    static public void reduceToken(int token){
+        NoMorePorn.token-= token;
     }
     
     static class MyTimerListener implements ActionListener {
@@ -144,10 +145,11 @@ public final class NoMorePorn extends javax.swing.JFrame {
         jButton13 = new javax.swing.JButton();
         jButton14 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
-        jButton16 = new javax.swing.JButton();
+        jPanel15 = new javax.swing.JPanel();
         jButton17 = new javax.swing.JButton();
         jButton18 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
         invalidNumber = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -162,6 +164,13 @@ public final class NoMorePorn extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        SmartSelect = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        label1 = new java.awt.Label();
+        jPanel2 = new javax.swing.JPanel();
+        smart = new javax.swing.JButton();
+        smartbro = new javax.swing.JButton();
+        tnt = new javax.swing.JButton();
         LoadSmart = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -170,6 +179,22 @@ public final class NoMorePorn extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jButton6 = new javax.swing.JButton();
         jButton19 = new javax.swing.JButton();
+        LoadSmartBro = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        promoSmartBro = new javax.swing.JList();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel12 = new javax.swing.JPanel();
+        jButton24 = new javax.swing.JButton();
+        jButton25 = new javax.swing.JButton();
+        LoadTNT = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        promoTNT = new javax.swing.JList();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        jButton26 = new javax.swing.JButton();
+        jButton27 = new javax.swing.JButton();
         LoadGlobe = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -336,15 +361,18 @@ public final class NoMorePorn extends javax.swing.JFrame {
         });
         jPanel1.add(jButton15);
 
-        jButton16.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
-        jButton16.setText("Next");
-        jButton16.setFocusable(false);
-        jButton16.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton16ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton16);
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 164, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(jPanel15);
 
         jButton17.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         jButton17.setText("0");
@@ -375,6 +403,15 @@ public final class NoMorePorn extends javax.swing.JFrame {
             }
         });
 
+        jButton16.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton16.setText("Next");
+        jButton16.setFocusable(false);
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout inputNumberLayout = new javax.swing.GroupLayout(inputNumber);
         inputNumber.setLayout(inputNumberLayout);
         inputNumberLayout.setHorizontalGroup(
@@ -382,20 +419,25 @@ public final class NoMorePorn extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, inputNumberLayout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addGroup(inputNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(numberField, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, inputNumberLayout.createSequentialGroup()
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(51, 51, 51))
         );
         inputNumberLayout.setVerticalGroup(
             inputNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(inputNumberLayout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addComponent(numberField, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                .addComponent(numberField, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(inputNumberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(jButton16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -521,9 +563,56 @@ public final class NoMorePorn extends javax.swing.JFrame {
 
         MainTabPane.addTab(">3", LoadSun);
 
+        SmartSelect.setLayout(new java.awt.GridLayout(2, 0));
+
+        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
+
+        label1.setAlignment(java.awt.Label.CENTER);
+        label1.setFont(new java.awt.Font("Dialog", 0, 40)); // NOI18N
+        label1.setText("Select Menu");
+        jPanel5.add(label1);
+
+        SmartSelect.add(jPanel5);
+
+        jPanel2.setLayout(new java.awt.GridLayout(1, 3, 20, 20));
+
+        smart.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        smart.setText("Smart");
+        smart.setFocusable(false);
+        smart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                smartActionPerformed(evt);
+            }
+        });
+        jPanel2.add(smart);
+
+        smartbro.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        smartbro.setText("SmartBro");
+        smartbro.setFocusable(false);
+        smartbro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                smartbroActionPerformed(evt);
+            }
+        });
+        jPanel2.add(smartbro);
+
+        tnt.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        tnt.setText("TNT");
+        tnt.setFocusable(false);
+        tnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tntActionPerformed(evt);
+            }
+        });
+        jPanel2.add(tnt);
+
+        SmartSelect.add(jPanel2);
+
+        MainTabPane.addTab(">1", SmartSelect);
+
         promoSmart.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         promoSmart.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Regular 5", "Regular 10", "Regular 15", "Regular 20", "Regular 30", "Regular 50", "Regular 60", "Regular 100", "Regular 115", "Alltext 10", "Alltext 20", "Alltext 30", "Lahat text 20", "Lahat text 30", "Smart text 30", "Smart text 60", "Unli text to SMART, TNT, and SUN 50", "Unli text to SMART, TNT, and SUN 100", "200 mins. call to SMART and TNT 100", "All In 25", "Big Bytes 30", "Big Bytes 70" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -543,7 +632,7 @@ public final class NoMorePorn extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
@@ -601,9 +690,169 @@ public final class NoMorePorn extends javax.swing.JFrame {
 
         MainTabPane.addTab(">3", LoadSmart);
 
+        promoSmartBro.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        promoSmartBro.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "SB30  / Regular 30", "SB50  / Regular 50", "SB60  / Regular 60", "SB100 / Regular 100", "SB200 / Regular 200", "SB300 / Regular 300", "SB500 / Regular 500", "Unlimited Surfing 50", "Unlimited Surfing 85", "Unlimited Surfing 200", "Unlimited Surfing 250", "Unlimited Surfing 500", "All SurfMax (3G,4G,LTE capable) 50", "All SurfMax (3G,4G,LTE capable) 85", "All SurfMax (3G,4G,LTE capable) 200", "All SurfMax (3G,4G,LTE capable) 250", "All SurfMax (3G,4G,LTE capable) 500", "All SurfMax (3G,4G,LTE capable) 995", "Flexi 20", "Flexi 30", "Flexi 50", "Flexi 100", "Flexi 200", "Flexi 400" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        promoSmartBro.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        promoSmartBro.setToolTipText("");
+        jScrollPane4.setViewportView(promoSmartBro);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("SmartBro Menu");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4)
+                .addContainerGap())
+        );
+
+        jPanel12.setLayout(new java.awt.GridLayout(1, 0));
+
+        jButton24.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton24.setText("Return");
+        jButton24.setFocusable(false);
+        jButton24.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton24ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton24);
+
+        jButton25.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton25.setText("Next");
+        jButton25.setFocusable(false);
+        jButton25.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton25ActionPerformed(evt);
+            }
+        });
+        jPanel12.add(jButton25);
+
+        javax.swing.GroupLayout LoadSmartBroLayout = new javax.swing.GroupLayout(LoadSmartBro);
+        LoadSmartBro.setLayout(LoadSmartBroLayout);
+        LoadSmartBroLayout.setHorizontalGroup(
+            LoadSmartBroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadSmartBroLayout.createSequentialGroup()
+                .addGroup(LoadSmartBroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoadSmartBroLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        LoadSmartBroLayout.setVerticalGroup(
+            LoadSmartBroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadSmartBroLayout.createSequentialGroup()
+                .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        MainTabPane.addTab(">3", LoadSmartBro);
+
+        promoTNT.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        promoTNT.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Regular 5", "Regular 10", "Regular 15", "Regular 20", "Regular 30", "Regular 50", "Regular 60", "Regular 100", "Regular 115", "Regular 200", "Regular 300", "Regular 500", "Regular 1000", "Gaan text 10", "Gaan text 20", "Patok o Text 10", "Patok o Text 20", "Patok o Text 30", "Unli text to all 20", "UTP 100", "UTP 200", "Unli text to all networks 30", "Unli text and 10 mins. call to SMART/TNT, 50 text to SMART/TNT 10", "Unli call and text to SMART/TNT 20", "Gaan Unlitext 10", "Gaan Unlitext Plus 15", "Gaan Unlitext 30", "Unlitext to SMART,TNT,SUN 150", "Unlitext to SMART,TNT,SUN 10", "Unlitext Extra 30", "40 Quick call(30 secs. each) 15", "PIDD 20", "PIDD 50" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        promoTNT.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        promoTNT.setToolTipText("");
+        jScrollPane5.setViewportView(promoTNT);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("TNT Menu");
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5))
+                .addContainerGap())
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel13Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5)
+                .addContainerGap())
+        );
+
+        jPanel14.setLayout(new java.awt.GridLayout(1, 0));
+
+        jButton26.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton26.setText("Return");
+        jButton26.setFocusable(false);
+        jButton26.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton26ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jButton26);
+
+        jButton27.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton27.setText("Next");
+        jButton27.setFocusable(false);
+        jButton27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton27ActionPerformed(evt);
+            }
+        });
+        jPanel14.add(jButton27);
+
+        javax.swing.GroupLayout LoadTNTLayout = new javax.swing.GroupLayout(LoadTNT);
+        LoadTNT.setLayout(LoadTNTLayout);
+        LoadTNTLayout.setHorizontalGroup(
+            LoadTNTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadTNTLayout.createSequentialGroup()
+                .addGroup(LoadTNTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(LoadTNTLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        LoadTNTLayout.setVerticalGroup(
+            LoadTNTLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoadTNTLayout.createSequentialGroup()
+                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        MainTabPane.addTab(">3", LoadTNT);
+
         promoGlobe.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         promoGlobe.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            String[] strings = { "Regular 10", "Regular 15", "Regular 20", "Regular 25", "Regular 30", "Regular 35", "Regular 40", "Regular 45", "Regular 50", "Regular 55", "Regular 60", "Regular 65", "Regular 70", "Regular 75", "Regular 80", "Regular 85", "Regular 90", "Regular 95", "Regular 100", "Regular 105", "Regular 110", "Regular 115", "Regular 120", "Regular 125", "Regular 130", "Regular 135", "Regular 140", "Regular 145", "Regular 150" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
@@ -804,7 +1053,7 @@ public final class NoMorePorn extends javax.swing.JFrame {
         current_number = numberField.getText();
         switch(nvdia.getNumberIdentity(numberField.getText())){
             case "smart":
-                MainTabPane.setSelectedComponent(LoadSmart);//JOptionPane.showMessageDialog(rootPane, "smart");
+                MainTabPane.setSelectedComponent(SmartSelect);//JOptionPane.showMessageDialog(rootPane, "smart");
                 break;
             case "sun":
                 MainTabPane.setSelectedComponent(LoadSun);//JOptionPane.showMessageDialog(rootPane, "sun");
@@ -870,7 +1119,7 @@ public final class NoMorePorn extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        MainTabPane.setSelectedComponent(inputNumber);
+        MainTabPane.setSelectedComponent(SmartSelect);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
@@ -893,7 +1142,20 @@ public final class NoMorePorn extends javax.swing.JFrame {
         NumberValidation nvdia = new NumberValidation();
         switch(nvdia.getNumberIdentity(current_number)){
             case "smart":
-                MainTabPane.setSelectedComponent(LoadSmart);//JOptionPane.showMessageDialog(rootPane, "smart");
+                switch(smartSelected){
+                    case 1:
+                        MainTabPane.setSelectedComponent(LoadSmart);//JOptionPane.showMessageDialog(rootPane, "smart");
+                        break;
+                    case 2:
+                        MainTabPane.setSelectedComponent(LoadSmartBro);//JOptionPane.showMessageDialog(rootPane, "smart");
+                        break;
+                    case 3:
+                         MainTabPane.setSelectedComponent(LoadTNT);//JOptionPane.showMessageDialog(rootPane, "smart");
+                        break;
+                    default:
+                        MainTabPane.setSelectedComponent(unknownNumber);
+                        break;
+                }
                 break;
             case "sun":
                 MainTabPane.setSelectedComponent(LoadSun);//JOptionPane.showMessageDialog(rootPane, "sun");
@@ -912,15 +1174,29 @@ public final class NoMorePorn extends javax.swing.JFrame {
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
         NumberValidation nvdia = new NumberValidation();
+        Retailer rtl = new Retailer();
+        
         switch(nvdia.getNumberIdentity(current_number)){
             case "smart":
-                JOptionPane.showMessageDialog(rootPane, "smart");//MainTabPane.setSelectedComponent(LoadSmart);//
+                switch(smartSelected){
+                    case 1:
+                        rtl.retailSun(current_number,promoSmart.getSelectedValue().toString());//JOptionPane.showMessageDialog(rootPane, "smart");//MainTabPane.setSelectedComponent(LoadSmart);//
+                        break;
+                    case 2:
+                        rtl.retailSun(current_number,promoSmartBro.getSelectedValue().toString());//JOptionPane.showMessageDialog(rootPane, "smartbro");//MainTabPane.setSelectedComponent(LoadSmart);//
+                        break;
+                    case 3:
+                        rtl.retailSun(current_number,promoTNT.getSelectedValue().toString());//JOptionPane.showMessageDialog(rootPane, "tnt");//MainTabPane.setSelectedComponent(LoadSmart);//
+                        break;
+                    default:
+                        MainTabPane.setSelectedComponent(unknownNumber);
+                }
                 break;
             case "sun":
-                retailSun(current_number,promoSun.getSelectedValue().toString());//JOptionPane.showMessageDialog(rootPane, "sun");//MainTabPane.setSelectedComponent(LoadSun);//
+                rtl.retailSun(current_number,promoSun.getSelectedValue().toString());//JOptionPane.showMessageDialog(rootPane, "sun");//MainTabPane.setSelectedComponent(LoadSun);//
                 break;
             case "globe":
-                JOptionPane.showMessageDialog(rootPane, "globe");//MainTabPane.setSelectedComponent(LoadGlobe);//
+                rtl.retailSun(current_number,promoGlobe.getSelectedValue().toString());//JOptionPane.showMessageDialog(rootPane, "globe");//MainTabPane.setSelectedComponent(LoadGlobe);//
                 break;
             case "invalid":
                 MainTabPane.setSelectedComponent(invalidNumber);
@@ -931,137 +1207,43 @@ public final class NoMorePorn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton23ActionPerformed
 
-    
+    private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
+        MainTabPane.setSelectedComponent(SmartSelect);
+    }//GEN-LAST:event_jButton24ActionPerformed
+
+    private void jButton25ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton25ActionPerformed
+        MainTabPane.setSelectedComponent(FinalConfirm);
+        finalNumber.setText("Number: "+current_number);
+        finalPromo.setText("Promo: "+promoSmartBro.getSelectedValue());
+    }//GEN-LAST:event_jButton25ActionPerformed
+
+    private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton26ActionPerformed
+        MainTabPane.setSelectedComponent(SmartSelect);
+    }//GEN-LAST:event_jButton26ActionPerformed
+
+    private void jButton27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton27ActionPerformed
+        MainTabPane.setSelectedComponent(FinalConfirm);
+        finalNumber.setText("Number: "+current_number);
+        finalPromo.setText("Promo: "+promoTNT.getSelectedValue());
+    }//GEN-LAST:event_jButton27ActionPerformed
+
+    private void smartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smartActionPerformed
+        MainTabPane.setSelectedComponent(LoadSmart);
+        smartSelected=1;
+    }//GEN-LAST:event_smartActionPerformed
+
+    private void smartbroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_smartbroActionPerformed
+        MainTabPane.setSelectedComponent(LoadSmartBro);
+        smartSelected=2;
+    }//GEN-LAST:event_smartbroActionPerformed
+
+    private void tntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tntActionPerformed
+        MainTabPane.setSelectedComponent(LoadTNT);
+        smartSelected=3;
+    }//GEN-LAST:event_tntActionPerformed
+
     private static final String directory=System.getProperty("user.dir");
-    private static final String sample=directory+File.separator+"sendMsg.txt";
-    private static final String trigger=directory+File.separator+"sendMsgTrigger.txt";
     private static final String tokenAdd=directory+File.separator+"addToken.txt";
-
-
-    public static void createFile(String code,String number)
-    {
-        File file=new File(sample);
-        try(FileWriter fw=new FileWriter(file))
-        {
-            fw.write(number+"_-_"+code);
-            fw.flush();
-            fw.close();
-            File fileTrigger=new File(trigger);
-            try(FileWriter fwt=new FileWriter(fileTrigger))
-            {
-                fwt.write("1");
-                fwt.flush();
-                fwt.close();
-            }catch(IOException ex)
-            {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-                ex.printStackTrace();
-            }
-        }catch(IOException ex)
-        {
-            JOptionPane.showMessageDialog(null, ex.getMessage());
-            ex.printStackTrace();
-        }
-    }
-    
-    public void safeCreateFile(String code,String number,int cost)//wait for queue
-    {
-        FileReader fr = null;
-        String flag = "1";
-        int counter = 0;
-        boolean fail = false;
-        do{
-        try {
-            fr = new FileReader(trigger);
-            BufferedReader textReader = new BufferedReader(fr);
-            flag = textReader.readLine();
-            System.out.println(flag);
-        } catch (FileNotFoundException ex) {
-            createTriggerFile();
-        } catch (IOException ex) {
-            Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                fr.close();
-            } catch (IOException ex) {
-                continue;//Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        try {
-            // thread to sleep for 1000 milliseconds
-            Thread.sleep(500);
-        } catch (InterruptedException ex) {
-            continue;//Logger.getLogger(NoMorePorn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        counter++;
-        if(counter>10){fail=true;break;}
-        }while("1".equals(flag));
-            MainTabPane.setSelectedComponent(MainPorn);
-        if(!fail){
-            createFile(code,number);
-            reduceToken(cost);
-            JOptionPane.showMessageDialog(null, "Sent.");
-        }else{
-            createTriggerFile();
-            JOptionPane.showMessageDialog(null, "Sending Failed. Try again.");
-        }
-        
-    }
-    
-    public static void createTriggerFile(){
-        File fileTrigger=new File(trigger);
-        try(FileWriter fwt=new FileWriter(fileTrigger))
-        {
-            fwt.write("0");
-            fwt.flush();
-            fwt.close();
-        }catch(IOException exc)
-        {
-            JOptionPane.showMessageDialog(null, exc.getMessage());
-            exc.printStackTrace();
-        }
-    }
-    
-    
-    private void retailSun(String number,String promo){
-        String[] stringsPromo = {"Call and Text Combo 10", "Call and Text Combo 20", "Call and Text Combo 30", "Call and Text Combo 50", "Unli Call and Text 25", "Unli Call and Text 30", "Unli Call and Text 100", "Unli Call and Text 150", "Unli Call and Text 450", "Unli Text to all network 20", "Unli Text 20", "Unli Text 50", "Unli Text 150", "Winner Text 10", "Trio 20", "IDD Combo 30", "IDD Combo 60", "TODO IDD 30" };
-        String[] stringsCode =  {"CTC10", "CTC20", "CTC30", "CTC50", "CTU25", "CTU30", "CTU100", "CTU150", "CTU450", "UTA20", "TU20", "TU50", "TU150", "WT10", "TRIO20", "IDD30", "IDD60", "IDD300" };
-        int[] promoCost =       {     10,      20,      30,      50,      25,      30,      100,      150,      450,      20,     20,     50,     150,     10,       20,      30,      60,       30 };
-        if(promo.contains("Regular")){
-            int cost = Integer.parseInt(promo.replace("Regular ", ""));
-            System.out.println(token+">="+cost);
-            if(token>=cost){
-                safeCreateFile(number+" "+promo.replace("Regular ", ""),"GATEWAY",cost);
-            }else{
-                MainTabPane.setSelectedComponent(MainPorn);
-                JOptionPane.showMessageDialog(promoSun, "Not Enough pepe");
-            }
-        }else{
-            if(stringsPromo.length==stringsCode.length){
-                for (int i = 0; i < stringsPromo.length && i< stringsCode.length; i++) {
-                    String strPromo = stringsPromo[i];
-                    if(promo.equals(strPromo)){
-                        String strCode = stringsCode[i];
-                        int cost = promoCost[i];
-
-                        System.out.println(token+">="+cost);
-
-                        if(token>=cost){
-                            if(strPromo == null ? promo == null : strPromo.equals(promo)){
-                                safeCreateFile(number+" "+strCode,"GATEWAY",cost);
-                                break;
-                            }
-                        }else{
-                            MainTabPane.setSelectedComponent(MainPorn);
-                            JOptionPane.showMessageDialog(promoSun, "Not Enough pepe");
-                        }
-                    }
-                }
-            }else{
-                JOptionPane.showMessageDialog(promoSun, "length mismatch at retailSun");
-            }
-        }
-    }
     
     private void keypadHandler(javax.swing.JButton btn){
         if(!btn.getText().equals("<-")&&numberField.getText().length()<11){
@@ -1110,9 +1292,12 @@ public final class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JPanel FinalConfirm;
     private javax.swing.JPanel LoadGlobe;
     private javax.swing.JPanel LoadSmart;
+    private javax.swing.JPanel LoadSmartBro;
     private javax.swing.JPanel LoadSun;
-    private javax.swing.JPanel MainPorn;
-    private javax.swing.JTabbedPane MainTabPane;
+    private javax.swing.JPanel LoadTNT;
+    public static javax.swing.JPanel MainPorn;
+    public static javax.swing.JTabbedPane MainTabPane;
+    private javax.swing.JPanel SmartSelect;
     private javax.swing.JButton chargBtn;
     private javax.swing.JLabel finalNumber;
     private javax.swing.JLabel finalPromo;
@@ -1134,6 +1319,10 @@ public final class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
+    private javax.swing.JButton jButton24;
+    private javax.swing.JButton jButton25;
+    private javax.swing.JButton jButton26;
+    private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1142,15 +1331,24 @@ public final class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
@@ -1158,13 +1356,21 @@ public final class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private java.awt.Label label1;
     private javax.swing.JButton loadBtn;
     private javax.swing.JTextField numberField;
     private javax.swing.JLabel poke_in;
     private javax.swing.JPanel pornel;
     private javax.swing.JList promoGlobe;
     private javax.swing.JList promoSmart;
+    private javax.swing.JList promoSmartBro;
     private javax.swing.JList promoSun;
+    private javax.swing.JList promoTNT;
+    private javax.swing.JButton smart;
+    private javax.swing.JButton smartbro;
+    private javax.swing.JButton tnt;
     private javax.swing.JPanel unknownNumber;
     // End of variables declaration//GEN-END:variables
 }

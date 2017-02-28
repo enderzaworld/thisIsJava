@@ -11,16 +11,33 @@ package thisisjava;
  */
 public class NumberValidation {
     
+    public String getGateway(String Network){
+        switch(Network.toLowerCase()){
+            case "smart":
+            case "smartbro":
+            case "tnt":
+                return "8724";
+            case "sun":
+            case "globe":
+            case "tm":
+            case "abs-cbn":
+                return "GATEWAY";
+            default:
+                return null;
+        }
+    }
+    
     public boolean isGlobe(String Number){
-        return "globe".equals(getNumberIdentity(Number));
+        return "globe".equals(getNumberIdentity(Number).toLowerCase());
     }
     
     public boolean isSmart(String Number){
-        return "smart".equals(getNumberIdentity(Number));
+        String net = getNumberIdentity(Number).toLowerCase();
+        return ("smart".equals(net)||"smartbro".equals(net)||"tnt".equals(net));
     }
     
     public boolean isSun(String Number){
-        return "sun".equals(getNumberIdentity(Number));
+        return "sun".equals(getNumberIdentity(Number).toLowerCase());
     }
     
     public String getNumberIdentity(String Number){
@@ -31,28 +48,28 @@ public class NumberValidation {
                     case "0913"://smart? unreliable source
                     case "0914"://smart? unreliable source
                     case "0989"://smart? unreliable source
-                    case "0813":
-                    case "0907":
-                    case "0908":
-                    case "0909":
-                    case "0910":
-                    case "0912":
-                    case "0918":
-                    case "0919":
-                    case "0920":
-                    case "0921":
-                    case "0928":
-                    case "0929":
-                    case "0930":// Formerly Red Mobile
-                    case "0938":// Formerly Red Mobile
-                    case "0939":// Formerly Red Mobile
-                    case "0946":
-                    case "0947":
-                    case "0948":
-                    case "0949":
-                    case "0950":
-                    case "0998":
-                    case "0999":
+                    case "0813"://postpaid
+                    case "0907"://TNT - prepaid
+                    case "0908"://TNT - prepaid
+                    case "0909"://TNT - prepaid
+                    case "0910"://TNT - prepaid
+                    case "0912"://TNT - prepaid
+                    case "0918"://TNT - prepaid
+                    case "0919"://TNT - prepaid
+                    case "0920"://TNT - prepaid
+                    case "0921"://TNT - prepaid
+                    case "0928"://TNT - prepaid
+                    case "0929"://TNT - prepaid
+                    case "0930"://TNT Formerly Red Mobile
+                    case "0938"://TNT Formerly Red Mobile
+                    case "0939"://TNT Formerly Red Mobile
+                    case "0946"://TNT - prepaid
+                    case "0947"://TNT - prepaid
+                    case "0948"://TNT - prepaid
+                    case "0949"://TNT - prepaid
+                    case "0950"://TNT - prepaid
+                    case "0998"://TNT - prepaid
+                    case "0999"://TNT - prepaid
                         return "smart";
                     //sun
                     case "0922":

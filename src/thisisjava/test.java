@@ -32,6 +32,9 @@ public class test {
         }
     }
     public static void main(String[] args) {
-        createFile();
+       //createFile();
+       String promo = "Regular 20";
+       String regStr = promo.substring((promo.indexOf("Regular ")+"Regular ".length()));
+       System.out.println(regStr);
     }
 }
