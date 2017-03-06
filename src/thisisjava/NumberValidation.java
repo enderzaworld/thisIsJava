@@ -16,12 +16,13 @@ public class NumberValidation {
             case "smart":
             case "smartbro":
             case "tnt":
-                return "8724";
+//                return "8724";
             case "sun":
             case "globe":
             case "tm":
             case "abs-cbn":
-                return "GATEWAY";
+                return "8724";
+//                return "GATEWAY";
             default:
                 return null;
         }

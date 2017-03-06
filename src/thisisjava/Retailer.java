@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static javax.swing.JOptionPane.YES_NO_CANCEL_OPTION;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
 
 /**
@@ -24,9 +23,28 @@ import static javax.swing.JOptionPane.YES_NO_OPTION;
 public class Retailer {
     private static final String directory=System.getProperty("user.dir");
     private static final String sample=directory+File.separator+"sendMsg.txt";
+    private static final String chargeState=directory+File.separator+"chargeState.txt";
     private static final String trigger=directory+File.separator+"sendMsgTrigger.txt";
     private static final NumberValidation nvdia = new NumberValidation();
 
+    public static void createChargeFile(boolean state){
+        File file=new File(chargeState);
+        try(FileWriter fw=new FileWriter(file))
+        {
+            if(state){
+                fw.write("1");
+            }else{
+                fw.write("0");
+            }
+            fw.flush();
+            fw.close();
+        }catch(IOException ex)
+        {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+    
     public static void createFile(String code,String number){
         File file=new File(sample);
         try(FileWriter fw=new FileWriter(file))

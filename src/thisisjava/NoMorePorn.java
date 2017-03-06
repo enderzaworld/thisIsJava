@@ -43,10 +43,12 @@ public final class NoMorePorn extends javax.swing.JFrame {
      */
     public NoMorePorn() {
         initComponents();
+        Retailer.createChargeFile(false);
         
         ScheduledExecutorService sas = Executors.newSingleThreadScheduledExecutor();
         sas.scheduleAtFixedRate(new Runnable() {
 
+            @Override
             public void run() {
                 //tokenAdd
                 FileReader fr = null;
@@ -1076,21 +1078,25 @@ public final class NoMorePorn extends javax.swing.JFrame {
 
     private void chargBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargBtnActionPerformed
         if(token>0){
-        JButton toDisable = (JButton) evt.getSource();
-        toDisable.setEnabled(false);
-        timeLeft=SEC*token;
-        stopwatch = new Timer(SEC*token * 1000, new MyTimerListener(chargBtn));
-        stopwatch.setRepeats(false);
-        ses = Executors.newSingleThreadScheduledExecutor();
-        ses.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                chargBtn.setText("Charging("+timeLeft+" sec)");
-                timeLeft--;
-            }
-        }, 0, 1, TimeUnit.SECONDS);
-        stopwatch.start();
-        reduceToken(token);
+            JButton toDisable = (JButton) evt.getSource();
+            toDisable.setEnabled(false);
+            timeLeft=SEC*token;
+            stopwatch = new Timer(SEC*token * 1000, new MyTimerListener(chargBtn));
+            stopwatch.setRepeats(false);
+            ses = Executors.newSingleThreadScheduledExecutor();
+            ses.scheduleAtFixedRate(new Runnable() {
+                @Override
+                public void run() {
+                    chargBtn.setText("Charging("+timeLeft+" sec)");
+                    timeLeft--;
+                    if(timeLeft<=0){
+                        Retailer.createChargeFile(false);
+                    }
+                }
+            }, 0, 1, TimeUnit.SECONDS);
+            stopwatch.start();
+            Retailer.createChargeFile(true);
+            reduceToken(token);
         }else{
             JOptionPane.showMessageDialog(this, "Wala ka pera");
         }
