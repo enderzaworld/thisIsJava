@@ -173,6 +173,7 @@ public final class NoMorePorn extends javax.swing.JFrame {
         smart = new javax.swing.JButton();
         smartbro = new javax.swing.JButton();
         tnt = new javax.swing.JButton();
+        jButton28 = new javax.swing.JButton();
         LoadSmart = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -565,7 +566,7 @@ public final class NoMorePorn extends javax.swing.JFrame {
 
         MainTabPane.addTab(">3", LoadSun);
 
-        SmartSelect.setLayout(new java.awt.GridLayout(2, 0));
+        SmartSelect.setLayout(new java.awt.GridLayout(3, 0));
 
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -610,7 +611,17 @@ public final class NoMorePorn extends javax.swing.JFrame {
 
         SmartSelect.add(jPanel2);
 
-        MainTabPane.addTab(">1", SmartSelect);
+        jButton28.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
+        jButton28.setText("Return");
+        jButton28.setFocusable(false);
+        jButton28.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton28ActionPerformed(evt);
+            }
+        });
+        SmartSelect.add(jButton28);
+
+        MainTabPane.addTab(">2.5", SmartSelect);
 
         promoSmart.setFont(new java.awt.Font("Tahoma", 0, 40)); // NOI18N
         promoSmart.setModel(new javax.swing.AbstractListModel() {
@@ -1248,6 +1259,10 @@ public final class NoMorePorn extends javax.swing.JFrame {
         smartSelected=3;
     }//GEN-LAST:event_tntActionPerformed
 
+    private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
+        MainTabPane.setSelectedComponent(inputNumber);
+    }//GEN-LAST:event_jButton28ActionPerformed
+
     private static final String directory=System.getProperty("user.dir");
     private static final String tokenAdd=directory+File.separator+"addToken.txt";
     
@@ -1329,6 +1344,7 @@ public final class NoMorePorn extends javax.swing.JFrame {
     private javax.swing.JButton jButton25;
     private javax.swing.JButton jButton26;
     private javax.swing.JButton jButton27;
+    private javax.swing.JButton jButton28;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
